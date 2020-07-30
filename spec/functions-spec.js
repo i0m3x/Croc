@@ -49,7 +49,7 @@ describe("addf", function() {
 
 describe("liftf", function() {
   it("should take a binary function and make it callable with two invocations", function() {
-    const addf_version2 = liftf(add);
+    const addf_version2 = liftf(add); //first function
     expect(addf_version2(4)(3)).toEqual(7);
 
     expect(liftf(mul)(5)(6)).toEqual(30);
