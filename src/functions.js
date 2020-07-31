@@ -211,16 +211,53 @@ function collect(gen, array){ //should take a generator and an array
 
 //should take a generator and a predicate, and 
 //return a generator that produces only the values approved by the predicate
-function filter(gen(), pred){
+// function filter(gen(), pred){
   
-  // iterate through something
+//   // iterate through something
 
-  // if statement about evenness
+//   // if statement about evenness
 
-  // range?
+//   // range?
 
-  // have an edge case about undefined
+//   // have an edge case about undefined
 
-  //why did Evan want a while true?
-  return function
+//   //why did Evan want a while true?
+//   return function
+// }
+
+function filter(gen, pred){ // two params
+  return function () { // return a whole bunch of things
+    while (true){ //make sure it executes
+      let value = gen() // alias for function
+      if(pred(value)){ // a conditional taking in the alias above
+        return value //returning the alias if condition executes
+      } else if (value === undefined){ //otherwise make it null
+        return undefined
+      }
+    }
+  }
 }
+// should take two generators and return a generator that combines the sequences
+//what on Earth is a generator? Evan makes it sounds like a var
+// i'm thinking it's a binary function - will consult Freya
+
+function concat(gen1,gen2) {
+  return function(){
+    const value = gen1()
+
+    if(value !== undefined){
+      return value
+    } else {
+      return gen2()
+    }
+  }
+}
+
+function repeat (gen) {
+  do {
+
+  } while {
+
+  }
+  }
+}}
