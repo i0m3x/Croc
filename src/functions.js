@@ -209,3 +209,18 @@ function collect(gen, array){ //should take a generator and an array
   }
 }
 
+//should take a generator and a predicate, and 
+//return a generator that produces only the values approved by the predicate
+function filter(gen(), pred){
+  
+  // iterate through something
+
+  // if statement about evenness
+
+  // range?
+
+  // have an edge case about undefined
+
+  //why did Evan want a while true?
+  return function
+}
