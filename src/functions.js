@@ -64,14 +64,15 @@ const reverse = fn => (x,y) => fn(y,x)
 //     return g(f(x))
 //   }
 // }
-const composeu = (f,g) => x => g(f(x))
+//should take two unary functions and return a unary function that calls them both
+const composeu = (f,g) => x => g(f(x)) // not really sure , but perhaps this algebraic function only needs one arg
 
 
-
-function composeb(a,b){
-  return function (a,b,c){
-    return g(f(a,b), c)
-  }
+//should take two binary functions and return a function that calls them both
+function composeb(a,b){ //is this binary because it returns not one, but two functions?
+  return function (a,b,c){ //why does this have 3 params?
+    return g(f(a,b), c) // g function has two params, b/c there is one comma
+  } //conclusion: nested functions confuse me
 
 }
 
