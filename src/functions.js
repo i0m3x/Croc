@@ -100,15 +100,16 @@ function composeb(a,b){
 
 // const limit = (add, b) => x if(b<x)
 // instructor's solution
-function limit (fn,n){
-  let count = 0
+//should restrict a binary function to be called a limited number of times
+function limit (fn,n){ // got two params, so it's binary
+  let count = 0 //empty counter
 
-  return function(x,y){
-    if(count < n){
-      count++
-      return fn(x,y)
+  return function(x,y){ //return a function with two params
+    if(count < n){ //make a conditional about the argument outside this return function
+      count++ //increment the empty counter only if it's less
+      return fn(x,y) //return a binary function
     }
-    return undefined
+    return undefined //why are we doing this?
   }
 }
 
@@ -159,7 +160,7 @@ function to(generator, endVal){
     let count = generator()
 
     if(count < endVal){
-      return count
+      return count // is this a limit? i thought it was a count
     }
   }
 }
