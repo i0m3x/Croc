@@ -111,3 +111,97 @@ function limit (fn,n){
     return undefined
   }
 }
+
+// generate
+
+// what does 'from' return?
+
+// VS
+
+// what does 'index' return?
+
+// what is index?
+
+// index is a function to increment the counter
+
+
+// function from(start){
+//   count = 0
+//   for(let i =0; i<start.length-1 ; i++)
+//   return i
+// }
+
+// function from(start){
+//   return function (){ // think about signature of the function
+
+//   }
+// }
+
+function from(start) {
+  return function(){
+    return start++
+  }
+}
+
+// const g = to(from(5), 10)
+
+// function from(start){
+//   let counter = -1
+//   return function(){
+//     counter++
+//     return start + counter
+//   }
+// }
+
+//should take a generator and an end value, and return a generator that will produce numbers up to that limit
+function to(generator, endVal){
+  return function () {
+    let count = generator()
+
+    if(count < endVal){
+      return count
+    }
+  }
+}
+
+// const to = (gen, end) => () => {
+//   const x = gen()
+// }
+
+//should return a generator that will produce values in a range
+const fromTo = (start, end){
+  let counter = -1 //gotta increment up
+  return function () { //now operate!
+    counter++ // incrementwihtout for loop
+    if(start + counter < end){
+      return start + counter //simple addition
+    }
+  }
+
+}
+//should take an array and a generator and return a generator that will produce elements from the array
+//second argument should be optional. If a generator is not provided, then each of the elements of the array will be produced
+function element(arr, gen){
+  if(gen){
+    return() => arr[gen()]
+  }else{
+    let counter = -1
+    return function (){
+      counter++
+      return arr[counter]
+    }
+  }
+
+}
+
+//"should take a generator and an array, and return a function that will collect the results in the array.", function() {
+  
+function collect(gen, array){ //should take a generator and an array
+  return function () { 
+    let index = gen()
+    if(index != undefined){
+      array.push(index)
+      return index
+    }
+  }
+}
