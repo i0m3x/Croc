@@ -137,10 +137,11 @@ function limit (fn,n){ // got two params, so it's binary
 
 //   }
 // }
-
-function from(start) {
-  return function(){
-    return start++
+//"should return a generator that will produce a series of values"
+  // this code is really short - there must be some hidden logic
+function from(start) { // take one thing
+  return function(){ //return one thing
+    return start++ //that thing is a counter - but according to above I am incorrect
   }
 }
 
