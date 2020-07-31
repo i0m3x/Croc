@@ -179,29 +179,30 @@ const fromTo = (start, end){
   }
 
 }
-//should take an array and a generator and return a generator that will produce elements from the array
+
 //second argument should be optional. If a generator is not provided, then each of the elements of the array will be produced
-function element(arr, gen){
+function element(arr, gen){ //should take an array and a generator
   if(gen){
-    return() => arr[gen()]
-  }else{
+    return() => arr[gen()] //return a function that will collect the results in the array
+  }else{ //second argument should be optional
     let counter = -1
-    return function (){
+    return function (){ //produce elements from the array
       counter++
       return arr[counter]
     }
-  }
+  } // not sure what's happening here
 
 }
 
-//"should take a generator and an array, and return a function that will collect the results in the array.", function() {
+
   
 function collect(gen, array){ //should take a generator and an array
-  return function () { 
+  return function () { //return a function that will collect the results in the array
     let index = gen()
-    if(index != undefined){
+    if(index != undefined){ // if it's undefined then do the following
       array.push(index)
-      return index
+      return index // return where it is undefined
     }
   }
 }
+
