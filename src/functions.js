@@ -1,7 +1,22 @@
-function add(x,y){
-  return x+y
+// function add(x,y){
+//   return x+y
   
-}
+// }
+//arrow: 
+// arguments => return
+// (x,y) => x+y
+// correct above
+
+
+// or you can save the arrow funct to a value
+// const add = (x,y) => x + y
+
+// most verbose way
+const add = (x,y) => { return x + y}
+
+//some shortcuts, but they are troubling
+
+// i.e. single param arg does not need parens
 
 function sub (x,y){
   return x-y
@@ -27,13 +42,26 @@ function addf(x){
   }
 }
  //a beautiful and simple way to throw four functions onto a line
-const liftf = fn => x => y => fn(x,y)
+// const liftf = fn => x => y => fn(x,y)
+// function fn(x,y)
+// fn is a var name
+// let's rewrite
+function liftf(fn){
+  return function buffalo(x){ // arrow funcs are anonymous funcs
+    return function wings(y){
+      return fn(x,y)
+    }
+  }
+}
 
 function curry(fn, x){ //params: binary func + arg
   return liftf(fn)(x) //return func that can take a second arg
 // now at 34 specs, 26 failures
 }
 
+
+
+// haskell
 // const curry = (fn, x) => liftf => fn(x,y) does not work
 // function twice (fn) {
 //   return function (x) {
@@ -65,16 +93,20 @@ const reverse = fn => (x,y) => fn(y,x)
 //   }
 // }
 //should take two unary functions and return a unary function that calls them both
-const composeu = (f,g) => x => g(f(x)) // not really sure , but perhaps this algebraic function only needs one arg
-
+// const composeu = (f,g) => x => g(f(x)) // not really sure , but perhaps this algebraic function only needs one arg
+function composeu(f,g){
+  return function func1(x){
+    return g(f(x))
+  }
+}
 
 //should take two binary functions and return a function that calls them both
-function composeb(a,b){ //is this binary because it returns not one, but two functions?
-  return function (a,b,c){ //why does this have 3 params?
-    return g(f(a,b), c) // g function has two params, b/c there is one comma
-  } //conclusion: nested functions confuse me
-
+function composeb(func1,func2){ //is this binary because it returns not one, but two functions?
+  return function (g,f, num){ // add 2,3, 7
+    return func2(func1(g, f), num) // g function is being invoked, but also being called
+  } //conclusion: look at order of 2,3,7 pay attention to naming conventions
 }
+
 
 // firing off multiple payments
 
@@ -102,19 +134,49 @@ function composeb(a,b){ //is this binary because it returns not one, but two fun
 // const limit = (add, b) => x if(b<x)
 // instructor's solution
 //should restrict a binary function to be called a limited number of times
-function limit (fn,n){ // got two params, so it's binary
-  let count = 0 //empty counter
+// function limit (fn,n){ // got two params, so it's binary
+//   let count = 0 //empty counter
 
-  return function(x,y){ //return a function with two params
-    if(count < n){ //make a conditional about the argument outside this return function
-      count++ //increment the empty counter only if it's less
-      return fn(x,y) //return a binary function
+//   return function(x,y){ //return a function with two params
+//     if(count < n){ //make a conditional about the argument outside this return function
+//       count++ //increment the empty counter only if it's less
+//       return fn(x,y) //return a binary function
+//     }
+//     return undefined //why are we doing this?
+//   }
+// }
+
+function limit(someFunction,num){ //binary is func1, limited is limit
+  // count limited number of times
+  let count = 0
+  //return a function that adds things
+  return function func1(a,b){ // returning a func taking two args || binary func
+    count++ // b/c returning breaks the loop
+    
+    if(count > num){
+      return undefined
+    } else{
+    // can never have two returns in a row - does not execute
+    return someFunction(a,b) // this is where i return what i have called
     }
-    return undefined //why are we doing this?
   }
 }
+// What is closure?
+// It is saving data inside the function you created
 
-// generate
+// currying applying argument that has another argument inside of it
+
+// closure is saving that data
+
+// a count is a closure
+
+// functional programming definitions are vague
+
+// vagueness gives power, but difficult to define
+
+// consistency gives closures
+
+// generate - a way to create a range over a space
 
 // what does 'from' return?
 
@@ -138,13 +200,36 @@ function limit (fn,n){ // got two params, so it's binary
 
 //   }
 // }
+
+//IMPLICIT CLOSURE - 
 //"should return a generator that will produce a series of values"
   // this code is really short - there must be some hidden logic
-function from(start) { // take one thing
-  return function(){ //return one thing
-    return start++ //that thing is a counter - but according to above I am incorrect
-  }
-}
+// function from(start) { // take one thing
+//   // let count = 0
+//   // count++
+//   return function(){ //return one thing
+//     return start++ //that thing is a counter - but according to above I am incorrect
+//   }
+// }
+
+// function from(begin){
+//   let count = 0
+//   return function(){
+//     count ++
+//   }
+// }
+
+// to convert to arrow, write inner function
+// from = begin => (count=0) = count++
+const from = begin =>
+{
+    let count=begin;
+    return () => count++
+
+   }
+
+// you can leave out a return in an arrow function IF you are returning only one thing
+// ELSE you must explicitly return it
 
 // const g = to(from(5), 10)
 
@@ -172,7 +257,7 @@ function to(generator, endVal){
 // }
 
 //should return a generator that will produce values in a range
-const fromTo = (start, end){
+const fromTo = (start, end) => {
   let counter = -1 //gotta increment up
   return function () { //now operate!
     counter++ // incrementwihtout for loop
@@ -253,11 +338,11 @@ function concat(gen1,gen2) {
   }
 }
 
-function repeat (gen) {
-  do {
+// function repeat (gen) {
+//   do {
 
-  } while {
+//   } while {
 
-  }
-  }
-}}
+//   }
+//   }
+// }}

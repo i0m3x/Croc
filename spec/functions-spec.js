@@ -56,7 +56,7 @@ describe("liftf", function() {
   });
 })
 
-describe("curry", function() {
+describe("curry", function() {                                                            //one arg
   it("should take a binary function and an argument, and return a function that can take a second argument", function() {
     const addThree = curry(add, 3);
     expect(addThree(4)).toEqual(7);
